@@ -1,0 +1,319 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Test_Task project documentation.",
+        "version": "1.0.0",
+        "title": "Users API"
+    },
+    "components":{
+        "securitySchemes": {
+            "BearerAuth":{
+            "type" : "http",
+            "scheme": "bearer"
+        }
+        }
+    },
+    "schemes": ["http"],
+    "host": "localhost:3000",
+    "basePath": "/api/users",
+    "paths" : {
+        "/" : {
+            "get" : {
+                "summary" : "Get all users",
+                "description": "Get all users",
+                "produces": ["application/json"],
+                "parameters": [
+                    {  
+                      "name":"name",
+                      "in":"query",
+                      "description":"get users with that name",
+                      "required":false,
+                      "type":"string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                      "BearerAuth": [
+                        "http",
+                        "bearer"
+                      ]
+                    }
+                  ]
+            },
+            "post" : {
+                "summary" : "Create a user",
+                "description": "Create a user",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "user object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/User"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                      "BearerAuth": [
+                        "http",
+                        "bearer"
+                      ]
+                    }
+                  ]
+            }
+        },
+        "/{id}" : {
+
+            "get" : {
+                "summary" : "Get user by id",
+                "description": "Get user by id",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id that needs to be returned",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                      "BearerAuth": [
+                        "http",
+                        "bearer"
+                      ]
+                    }
+                  ]
+            },
+            "put" : {
+                "summary" : "Update user by id",
+                "description": "Update user by id",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "user object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/User"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                               "message": "User updated."                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                      "BearerAuth": [
+                        "http",
+                        "bearer"
+                      ]
+                    }
+                  ]
+            },
+            "delete" : {
+                "summary" : "Delete the user by id",
+                "description": "Delete user by id",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "message": "User deleted."
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                      "BearerAuth": [
+                        "http",
+                        "bearer"
+                      ]
+                    }
+                  ]
+            }
+            
+        }
+    }, 
+    "definitions": {
+        "userResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "age": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "user":  {
+                    "type":"object",
+                    "properties":{
+                        "firstname": {
+                            "type": "string",
+                            "description": "User's first name.",
+                            "pattern":"/^[a-zA-Z]+$/",
+                            "required": true,
+                            "maxLenght": 20,
+                            "minLenght":3
+                        },
+                        "lastname": {
+                            "type": "string",
+                            "description": "User's last name.",
+                            "pattern":"/^[a-zA-Z]+$/",
+                            "required": false,
+                            "maxLenght": 20,
+                            "minLenght":3
+                        },
+                        "age": {
+                            "type": "integer",
+                            "description": "User's age.",
+                            "required": true,
+                            "maximum": 99,
+                            "minimum":18
+                        
+                    }
+                }
+            }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        }
+    }
+}
