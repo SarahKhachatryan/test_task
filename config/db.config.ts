@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 export const connect = () => {
 
     const hostName = process.env.HOST;
-    const userName: any = process.env.USER;
+    const userName: any = process.env.USERNAME;
     const password: any = process.env.PASSWORD;
     const database: any = process.env.DB;
     const dialect: any = process.env.DIALECT;
