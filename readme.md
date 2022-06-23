@@ -7,6 +7,7 @@ Create .env file, copy ENV_VARIABLES from .test.env and make changes based on yo
 
 ```bash
 npm i 
+sequelize db:migrate
 npm run start
 ```
 ## For seeing the documentation go to 
